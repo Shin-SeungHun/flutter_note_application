@@ -9,8 +9,13 @@ late final Box<NoteItem> noteItems;
 
 void main() async {
   await Hive.initFlutter();
-
+  Hive.registerAdapter(NoteItemAdapter());
   noteItems = await Hive.openBox<NoteItem>('note.db');
+  print('All items in noteItems box:');
+  for (var key in noteItems.keys) {
+    var item = noteItems.get(key);
+    print('item $item');
+  }
 
   runApp(const MyApp());
 }
