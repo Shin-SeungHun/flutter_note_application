@@ -6,7 +6,12 @@ import 'package:go_router/go_router.dart';
 import '../colors.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  final NoteItem? noteItems;
+
+  const DetailScreen({
+    super.key,
+    required this.noteItems,
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -27,6 +32,11 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
+
+    if (widget.noteItems != null) {
+      _titleController.text = widget.noteItems!.title;
+      _contentController.text = widget.noteItems!.content;
+    }
   }
 
   @override
@@ -41,7 +51,11 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await noteItems.add(NoteItem(title: _titleController.text, content: _contentController.text, color: noteColors.length, timeStamp: DateTime.now().millisecondsSinceEpoch));
+          await noteItems.add(NoteItem(
+              title: _titleController.text,
+              content: _contentController.text,
+              color: noteColors.length,
+              timeStamp: DateTime.now().millisecondsSinceEpoch));
         },
         child: const Icon(Icons.save),
       ),
