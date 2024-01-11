@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
 import 'package:go_router/go_router.dart';
+import '../../utils/commons.dart';
 import '../../utils/enum/custom_colors.dart';
 
 class AddScreen extends StatefulWidget {
@@ -36,20 +37,12 @@ class _AddScreenState extends State<AddScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (_titleController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('제목을 입력하세요.'),
-              ),
-            );
+            Commons.showSnackBar(context: context, message: '제목을 입력하세요.');
             return;
           }
 
           if (_contentController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('내용을 입력하세요.'),
-              ),
-            );
+            Commons.showSnackBar(context: context, message: '내용을 입력하세요.');
             return;
           }
 
@@ -100,20 +93,23 @@ class _AddScreenState extends State<AddScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: Colors.black),
                 decoration: const InputDecoration(
                   hintText: '제목을 입력하세요',
+                  hintStyle: TextStyle(color: Colors.black38),
                   border: InputBorder.none,
                 ),
               ),
               TextField(
                 controller: _contentController,
                 maxLines: null,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: Colors.white,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(color: Colors.black),
                 decoration: const InputDecoration(
                   hintText: '내용을 입력하세요',
+                  hintStyle: TextStyle(color: Colors.black38),
                   border: InputBorder.none,
                 ),
               ),
@@ -137,14 +133,14 @@ Widget _buildBackgroundColor({
       shape: BoxShape.circle,
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black54.withOpacity(0.2),
           blurRadius: 5.0,
           spreadRadius: 1.0,
         )
       ],
       border: selected
           ? Border.all(
-              color: Colors.black,
+              color: Colors.black54,
               width: 3.0,
             )
           : null,
