@@ -3,6 +3,8 @@ import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/ui/main/widget/main_background.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/enum/custom_colors.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -27,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.go('/detailScreen');
+            context.push('DetailScreen');
           },
           child: const Icon(Icons.add),
         ),
@@ -47,6 +49,12 @@ class _MainScreenState extends State<MainScreen> {
             content: '내용$index',
             color: 11111,
             timeStamp: 20240111));
+
+    print( CustomColors.roseBud.indexValue);
+    print( CustomColors.primrose.indexValue);
+
+    print( CustomColorsExtension.colorFromIndex(1).colorValue );
+
     return Positioned(
       top: 10,
       bottom: 10,
