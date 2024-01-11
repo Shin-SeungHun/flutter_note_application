@@ -5,13 +5,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'router/routes.dart';
 
+late final Box<NoteItem> noteItems;
+
 void main() async {
   await Hive.initFlutter();
-  
-  Box<NoteItem> box = await Hive.openBox<NoteItem>('note.db');
 
+  noteItems = await Hive.openBox<NoteItem>('note.db');
 
-  
   runApp(const MyApp());
 }
 

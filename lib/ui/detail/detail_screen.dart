@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note_application/data/model/note_item.dart';
+import 'package:flutter_note_application/main.dart';
 import 'package:go_router/go_router.dart';
 
 import '../colors.dart';
 
-class AddNoteScreen extends StatefulWidget {
-  const AddNoteScreen({super.key});
+class DetailScreen extends StatefulWidget {
+  const DetailScreen({super.key});
 
   @override
-  State<AddNoteScreen> createState() => _AddNoteScreenState();
+  State<DetailScreen> createState() => _DetailScreenState();
 }
 
-class _AddNoteScreenState extends State<AddNoteScreen> {
+class _DetailScreenState extends State<DetailScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
 
@@ -38,7 +40,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await noteItems.add(NoteItem(title: _titleController.text, content: _contentController.text, color: noteColors.length, timeStamp: DateTime.now().millisecondsSinceEpoch));
+        },
         child: const Icon(Icons.save),
       ),
       body: AnimatedContainer(
@@ -84,7 +88,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   hintText: '내용을 입력하세요',
                   border: InputBorder.none,
                 ),
-              )
+              ),
             ],
           ),
         ),
