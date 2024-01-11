@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note_application/data/model/note_item.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'router/routes.dart';
 
-void main() {
+late final Box<NoteItem> noteItems;
+
+void main() async {
+  await Hive.initFlutter();
+
+  noteItems = await Hive.openBox<NoteItem>('note.db');
+
   runApp(const MyApp());
 }
 

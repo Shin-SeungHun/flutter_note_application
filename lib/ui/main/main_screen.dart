@@ -18,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              context.push('/addNoteScreen');
+              context.push('/detailScreen');
             },
             icon: const Icon(Icons.navigate_next),
           )

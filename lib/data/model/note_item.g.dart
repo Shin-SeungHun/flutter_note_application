@@ -19,19 +19,25 @@ class NoteItemAdapter extends TypeAdapter<NoteItem> {
     return NoteItem(
       title: fields[1] as String,
       content: fields[2] as String,
+      color: fields[3] as int,
+      timeStamp: fields[4] as int,
     )..id = fields[0] as int?;
   }
 
   @override
   void write(BinaryWriter writer, NoteItem obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.content);
+      ..write(obj.content)
+      ..writeByte(3)
+      ..write(obj.color)
+      ..writeByte(4)
+      ..write(obj.timeStamp);
   }
 
   @override
