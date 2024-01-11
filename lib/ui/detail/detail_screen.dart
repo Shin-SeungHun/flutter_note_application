@@ -6,11 +6,11 @@ import 'package:go_router/go_router.dart';
 import '../colors.dart';
 
 class DetailScreen extends StatefulWidget {
-  final NoteItem? noteItems;
+  // final NoteItem? noteItems;
 
   const DetailScreen({
     super.key,
-    required this.noteItems,
+    // required this.noteItems,
   });
 
   @override
@@ -33,10 +33,10 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
 
-    if (widget.noteItems != null) {
-      _titleController.text = widget.noteItems!.title;
-      _contentController.text = widget.noteItems!.content;
-    }
+    // if (widget.noteItems != null) {
+    //   _titleController.text = widget.noteItems!.title;
+    //   _contentController.text = widget.noteItems!.content;
+    // }
   }
 
   @override
