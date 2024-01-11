@@ -15,6 +15,7 @@ void main() async {
   for (var key in noteItems.keys) {
     var item = noteItems.get(key);
     print('item $item');
+    print('noteItems ${noteItems.keys};');
   }
 
   runApp(const MyApp());
