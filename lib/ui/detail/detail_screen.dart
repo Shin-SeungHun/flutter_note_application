@@ -3,6 +3,7 @@ import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/enum/custom_colors.dart';
 import '../colors.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-
+  CustomColors selectedColor = CustomColors.roseBud;
   final List<Color> noteColors = [
     roseBud,
     primrose,
@@ -64,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
           await noteItems.add(NoteItem(
             title: _titleController.text,
             content: _contentController.text,
-            color: noteColors.length,
+            color: selectedColor.indexValue,
             timeStamp: DateTime.now().millisecondsSinceEpoch,
             id: noteItems.values.length,
           ));
@@ -76,6 +77,7 @@ class _DetailScreenState extends State<DetailScreen> {
         child: const Icon(Icons.save),
       ),
       body: AnimatedContainer(
+        color: selectedColor.colorValue,
         duration: const Duration(milliseconds: 500),
         child: Padding(
           padding:
@@ -84,11 +86,14 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: noteColors
+                children: CustomColors.values
                     .map(
                       (e) => InkWell(
-                        onTap: () {},
-                        child: _buildBackgroundColor(color: e, selected: false),
+                        onTap: () {
+                          selectedColor = e;
+                        },
+                        child: _buildBackgroundColor(
+                            color: e.colorValue, selected: e == selectedColor),
                       ),
                     )
                     .toList(),
