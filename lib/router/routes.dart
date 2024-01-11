@@ -9,6 +9,7 @@ import '../ui/main/main_view_model.dart';
 final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
       path: '/',
+      name: 'MainScreen',
       builder: (context, state) {
         return ChangeNotifierProvider.value(
           value: MainViewModel(),
@@ -17,6 +18,7 @@ final router = GoRouter(initialLocation: '/', routes: [
       }),
   GoRoute(
       path: '/detailScreen',
+      name: 'DetailScreen',
       builder: (context, state) {
         // final NoteItem? noteItems = state['note.db'] as NoteItem?;
         return ChangeNotifierProvider.value(
