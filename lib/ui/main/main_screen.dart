@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note_application/ui/main/widget/main_background.dart';
+import 'package:flutter_note_application/utils/commons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../main.dart';
@@ -48,6 +49,7 @@ class _MainScreenState extends State<MainScreen> {
     print(CustomColors.primrose.indexValue);
     print(CustomColorsExtension.colorFromIndex(1).colorValue);
 
+
     return Positioned(
       top: 10,
       bottom: 10,
@@ -69,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                     context.push('/detailScreen/${noteItems.getAt(index)?.id}');
                   },
                   child: Card(
-                    color: Colors.brown, // noteList[index].color
+                    color: Commons.convertIndexToColor(index: noteItems.getAt(index)!.color.toString()),
                     child: Container(
                       color: Colors.transparent, // 투명한 배경색으로 설정
                       child: Padding(
@@ -91,12 +93,12 @@ class _MainScreenState extends State<MainScreen> {
                                 const SizedBox(height: 20),
                                 Padding(
                                   padding:
-                                  const EdgeInsets.fromLTRB(0, 0, 30, 0),
+                                      const EdgeInsets.fromLTRB(0, 0, 30, 0),
                                   child: Text(
                                     noteItems
-                                        .getAt(index)
-                                        ?.content
-                                        .toString() ??
+                                            .getAt(index)
+                                            ?.content
+                                            .toString() ??
                                         '',
                                     style: const TextStyle(fontSize: 16.0),
                                     overflow: TextOverflow.ellipsis,
