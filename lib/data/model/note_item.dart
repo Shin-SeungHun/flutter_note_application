@@ -1,11 +1,18 @@
-class NoteItem{
+import 'package:hive/hive.dart';
+
+part 'note_item.g.dart';
+
+@HiveType(typeId: 0)
+class NoteItem extends HiveObject {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   String content;
 
 //<editor-fold desc="Data Methods">
   NoteItem({
-    this.id,
     required this.title,
     required this.content,
   });
@@ -33,7 +40,6 @@ class NoteItem{
     String? content,
   }) {
     return NoteItem(
-      id: id ?? this.id,
       title: title ?? this.title,
       content: content ?? this.content,
     );
@@ -49,7 +55,6 @@ class NoteItem{
 
   factory NoteItem.fromMap(Map<String, dynamic> json) {
     return NoteItem(
-      id: json['id'] as int,
       title: json['title'] as String,
       content: json['content'] as String,
     );
