@@ -1,8 +1,7 @@
-import 'package:flutter_note_application/main.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../data/model/note_item.dart';
-import '../ui/detail/detail_screen.dart';
+import '../ui/add/add_screen.dart';
+import '../ui/add/add_view_model.dart';
 import '../ui/main/main_screen.dart';
 import '../ui/main/main_view_model.dart';
 
@@ -22,8 +21,8 @@ final router = GoRouter(initialLocation: '/', routes: [
       builder: (context, state) {
         // final NoteItem? noteItems = state['note.db'] as NoteItem?;
         return ChangeNotifierProvider.value(
-          value: MainViewModel(),
-          child:   const DetailScreen(),
+          value: AddViewModel(),
+          child:   const AddScreen(),
         );
       }),
 ]);

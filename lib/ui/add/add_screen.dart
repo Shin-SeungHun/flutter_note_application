@@ -2,30 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../utils/enum/custom_colors.dart';
-import '../colors.dart';
 
-class DetailScreen extends StatefulWidget {
-  const DetailScreen({
+class AddScreen extends StatefulWidget {
+  const AddScreen({
     super.key,
   });
 
   @override
-  State<DetailScreen> createState() => _DetailScreenState();
+  State<AddScreen> createState() => _AddScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _AddScreenState extends State<AddScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
   CustomColors selectedColor = CustomColors.roseBud;
-  final List<Color> noteColors = [
-    roseBud,
-    primrose,
-    wisteria,
-    skyBlue,
-    illusion,
-  ];
 
   @override
   void initState() {
