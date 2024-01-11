@@ -6,11 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../colors.dart';
 
 class DetailScreen extends StatefulWidget {
-  // final NoteItem? noteItems;
 
   const DetailScreen({
     super.key,
-    // required this.noteItems,
   });
 
   @override
@@ -33,10 +31,6 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
 
-    // if (widget.noteItems != null) {
-    //   _titleController.text = widget.noteItems!.title;
-    //   _contentController.text = widget.noteItems!.content;
-    // }
   }
 
   @override
@@ -51,11 +45,30 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          if (_titleController.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('제목을 입력하세요.'),
+              ),
+            );
+            return;
+          }
+
+          if (_contentController.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('내용을 입력하세요.'),
+              ),
+            );
+            return;
+          }
+
           await noteItems.add(NoteItem(
-              title: _titleController.text,
-              content: _contentController.text,
-              color: noteColors.length,
-              timeStamp: DateTime.now().millisecondsSinceEpoch));
+            title: _titleController.text,
+            content: _contentController.text,
+            color: noteColors.length,
+            timeStamp: DateTime.now().millisecondsSinceEpoch,
+          ));
         },
         child: const Icon(Icons.save),
       ),
