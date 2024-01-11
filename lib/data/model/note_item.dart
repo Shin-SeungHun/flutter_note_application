@@ -6,15 +6,25 @@ part 'note_item.g.dart';
 class NoteItem extends HiveObject {
   @HiveField(0)
   int? id;
+
   @HiveField(1)
   String title;
+
   @HiveField(2)
   String content;
+
+  @HiveField(3)
+  int color;
+
+  @HiveField(4)
+  int timeStamp;
 
 //<editor-fold desc="Data Methods">
   NoteItem({
     required this.title,
     required this.content,
+    required this.color,
+    required this.timeStamp,
   });
 
   @override
@@ -24,24 +34,35 @@ class NoteItem extends HiveObject {
           runtimeType == other.runtimeType &&
           id == other.id &&
           title == other.title &&
-          content == other.content);
+          content == other.content &&
+          color == other.color &&
+          timeStamp == other.timeStamp);
 
   @override
-  int get hashCode => id.hashCode ^ title.hashCode ^ content.hashCode;
+  int get hashCode =>
+      id.hashCode ^
+      title.hashCode ^
+      content.hashCode ^
+      color.hashCode ^
+      timeStamp.hashCode;
 
   @override
   String toString() {
-    return 'NoteItem{ id: $id, title: $title, content: $content,}';
+    return 'NoteItem{ id: $id, title: $title, content: $content, color: $color, timeStamp: $timeStamp,}';
   }
 
   NoteItem copyWith({
     int? id,
     String? title,
     String? content,
+    int? color,
+    int? timeStamp,
   }) {
     return NoteItem(
       title: title ?? this.title,
       content: content ?? this.content,
+      color: color ?? this.color,
+      timeStamp: timeStamp ?? this.timeStamp,
     );
   }
 
@@ -50,6 +71,8 @@ class NoteItem extends HiveObject {
       'id': id,
       'title': title,
       'content': content,
+      'color': color,
+      'timeStamp': timeStamp,
     };
   }
 
@@ -57,6 +80,8 @@ class NoteItem extends HiveObject {
     return NoteItem(
       title: json['title'] as String,
       content: json['content'] as String,
+      color: json['color'] as int,
+      timeStamp: json['timeStamp'] as int,
     );
   }
 
