@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/ui/main/widget/main_background.dart';
 import 'package:go_router/go_router.dart';
-// import 'package:hive/hive.dart';
 
-import '../../main.dart';
 import '../../utils/enum/custom_colors.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.push('/detailScreen');
+            context.push('DetailScreen');
           },
           child: const Icon(Icons.add),
         ),
@@ -44,11 +42,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget noteListWidget(BuildContext context) {
-    print(noteItems);
+    List<NoteItem> noteList = List.generate(
+        10,
+        (index) => NoteItem(
+            title: '제목$index',
+            content: '내용$index',
+            color: 11111,
+            timeStamp: 20240111));
 
-    print(CustomColors.roseBud.indexValue);
-    print(CustomColors.primrose.indexValue);
-    print(CustomColorsExtension.colorFromIndex(1).colorValue);
+    print( CustomColors.roseBud.indexValue);
+    print( CustomColors.primrose.indexValue);
+
+    print( CustomColorsExtension.colorFromIndex(1).colorValue );
 
     return Positioned(
       top: 10,
@@ -58,72 +63,55 @@ class _MainScreenState extends State<MainScreen> {
       child: Container(
         height: MediaQuery.of(context).size.height, // 화면 절반을 차지하도록 설정
         child: ListView.builder(
-          itemCount: noteItems.length,
+          itemCount: 3,
           itemBuilder: (context, index) {
-            if (index == 0) {
-              // 데이터 없음.
-              return const SizedBox();
-            } else {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: InkWell(
-                  onTap: () {
-                    context.push('/detailScreen/${noteItems.getAt(index)?.id}');
-                  },
-                  child: Card(
-                    color: Colors.brown, // noteList[index].color
-                    child: Container(
-                      color: Colors.transparent, // 투명한 배경색으로 설정
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Stack(
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Card(
+                color: Colors.brown, // noteList[index].color
+                child: Container(
+                  color: Colors.transparent, // 투명한 배경색으로 설정
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Stack(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  noteItems.getAt(index)?.title.toString() ??
-                                      '',
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                                const SizedBox(height: 20),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                                  child: Text(
-                                    noteItems
-                                            .getAt(index)
-                                            ?.content
-                                            .toString() ??
-                                        '',
-                                    style: const TextStyle(fontSize: 16.0),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              noteList[index].title,
+                              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
-                            Positioned(
-                              top: 40,
-                              bottom: 0,
-                              right: -10,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.restore_from_trash_sharp),
+                            const SizedBox(height: 20),
+                           Padding(
+                             padding :const EdgeInsets.fromLTRB(0, 0,30,0),
+                             child: Text(
+                                '${noteList[index].content}일이삼사오육칠팔구십 일이삼사오륙칠팔구이일이이이이일',
+                                style: const TextStyle(fontSize: 16.0),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
-                            ),
+                           ),
                           ],
                         ),
-                      ),
+                        Positioned(
+                          top: 40,
+                          bottom: 0,
+                          right: -10,
+                          child:
+                          IconButton(
+                            onPressed: (){},
+                            icon: Icon(Icons.restore_from_trash_sharp),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            } // else
+              ),
+            );
           },
         ),
       ),
