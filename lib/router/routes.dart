@@ -21,7 +21,7 @@ final router = GoRouter(initialLocation: '/', routes: [
         // final NoteItem? noteItems = state['note.db'] as NoteItem?;
         return ChangeNotifierProvider.value(
           value: MainViewModel(),
-          child:   DetailScreen(noteItems: null,),
+          child:   const DetailScreen(),
         );
       }),
 ]);
