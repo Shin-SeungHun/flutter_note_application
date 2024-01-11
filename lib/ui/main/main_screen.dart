@@ -45,11 +45,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget noteListWidget(BuildContext context) {
     print(noteItems);
 
-    print(CustomColors.roseBud.indexValue);
-    print(CustomColors.primrose.indexValue);
-    print(CustomColorsExtension.colorFromIndex(1).colorValue);
-
-
     return Positioned(
       top: 10,
       bottom: 10,
@@ -112,7 +107,15 @@ class _MainScreenState extends State<MainScreen> {
                               bottom: 0,
                               right: -10,
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await noteItems.delete(index);
+
+                                  () =>(){
+                                    Commons.showSnackBar(context: context, message:'삭제되었습니다.');
+                                  };
+
+                                  setState(() {});
+                                },
                                 icon: Icon(Icons.restore_from_trash_sharp),
                               ),
                             ),
