@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../colors.dart';
 
 class DetailScreen extends StatefulWidget {
-
   const DetailScreen({
     super.key,
   });
@@ -30,7 +29,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -68,7 +66,12 @@ class _DetailScreenState extends State<DetailScreen> {
             content: _contentController.text,
             color: noteColors.length,
             timeStamp: DateTime.now().millisecondsSinceEpoch,
+            id: noteItems.values.length,
           ));
+          BuildContext currentContext = context;
+          await Future.delayed(Duration.zero, () {
+            currentContext.go('/');
+          });
         },
         child: const Icon(Icons.save),
       ),
@@ -99,7 +102,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
-                    .copyWith(color: darkGray),
+                    .copyWith(color: Colors.white),
                 decoration: const InputDecoration(
                   hintText: '제목을 입력하세요',
                   border: InputBorder.none,
@@ -109,7 +112,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 controller: _contentController,
                 maxLines: null,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: darkGray,
+                      color: Colors.white,
                     ),
                 decoration: const InputDecoration(
                   hintText: '내용을 입력하세요',
