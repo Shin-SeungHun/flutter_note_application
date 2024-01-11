@@ -90,7 +90,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     .map(
                       (e) => InkWell(
                         onTap: () {
-                          selectedColor = e;
+                          setState(() {
+                            selectedColor = e;
+                          });
                         },
                         child: _buildBackgroundColor(
                             color: e.colorValue, selected: e == selectedColor),
