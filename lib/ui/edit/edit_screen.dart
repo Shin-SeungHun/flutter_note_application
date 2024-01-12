@@ -66,7 +66,8 @@ class _EditScreenState extends State<EditScreen> {
               timeStamp: DateTime.now().millisecondsSinceEpoch,
               id: widget.id ?? noteItems.values.length,
             ),
-          )ㅎ
+          );
+
           BuildContext currentContext = context;
           await Future.delayed(Duration.zero, () {
             currentContext.go('/');
