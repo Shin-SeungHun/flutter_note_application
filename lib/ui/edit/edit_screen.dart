@@ -58,16 +58,15 @@ class _EditScreenState extends State<EditScreen> {
           }
 
           await noteItems.put(
-            widget.id , // 기존 노트를 편집할 때는 widget.id를 사용하고, 새로운 노트를 추가할 때는 noteItems.values.length를 사용합니다.
+            widget.id ,
             NoteItem(
               title: _titleController.text,
               content: _contentController.text,
               color: selectedColor.indexValue,
               timeStamp: DateTime.now().millisecondsSinceEpoch,
-              id: widget.id ?? noteItems.values.length, // 동일하게 id를 설정합니다.
+              id: widget.id ?? noteItems.values.length,
             ),
-          );
-
+          )ㅎ
           BuildContext currentContext = context;
           await Future.delayed(Duration.zero, () {
             currentContext.go('/');
