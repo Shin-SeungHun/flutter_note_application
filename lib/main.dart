@@ -20,7 +20,7 @@ Future<void> init() async {
   print('All items in noteItems box:');
   for (var key in noteItems.keys) {
     var item = noteItems.get(key);
-    print('item $item');
+    print('item ${item?.timeStamp.runtimeType}');
     print('noteItems ${noteItems.keys};');
   }
 }
