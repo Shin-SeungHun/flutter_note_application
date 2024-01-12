@@ -1,12 +1,13 @@
 import 'package:flutter_note_application/router/enum/router.dart';
+import 'package:flutter_note_application/ui/add/add_screen.dart';
+import 'package:flutter_note_application/ui/add/add_view_model.dart';
+import 'package:flutter_note_application/ui/edit/edit_screen.dart';
+import 'package:flutter_note_application/ui/edit/edit_view_model.dart';
+import 'package:flutter_note_application/ui/main/main_screen.dart';
+import 'package:flutter_note_application/ui/main/main_view_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../ui/add/add_screen.dart';
-import '../ui/add/add_view_model.dart';
-import '../ui/edit/edit_screen.dart';
-import '../ui/edit/edit_view_model.dart';
-import '../ui/main/main_screen.dart';
-import '../ui/main/main_view_model.dart';
+
 
 final router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
@@ -19,8 +20,8 @@ final router = GoRouter(initialLocation: '/', routes: [
         );
       }),
   GoRoute(
-      path: '/addScreen',
-      name: 'AddScreen',
+      path: Router.addScreen.path,
+      name: Router.addScreen.name,
       builder: (context, state) {
         return ChangeNotifierProvider.value(
           value: AddViewModel(),
@@ -28,8 +29,8 @@ final router = GoRouter(initialLocation: '/', routes: [
         );
       }),
   GoRoute(
-      path: '/editScreen/:id',
-      name: 'EditScreen',
+      path: Router.editScreen.path,
+      name: Router.editScreen.name,
       builder: (context, state) {
         return ChangeNotifierProvider.value(
             value: EditViewModel(),
