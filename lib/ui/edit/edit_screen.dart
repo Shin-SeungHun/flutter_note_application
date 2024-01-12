@@ -7,6 +7,7 @@ import '../../utils/enum/custom_colors.dart';
 
 class EditScreen extends StatefulWidget {
   final int? id;
+
   const EditScreen({
     super.key,
     required this.id,
@@ -57,14 +58,14 @@ class _EditScreenState extends State<EditScreen> {
             return;
           }
 
-          await noteItems.put(
-            widget.id ,
+          await noteItems.putAt(
+            widget.id!,
             NoteItem(
               title: _titleController.text,
               content: _contentController.text,
               color: selectedColor.indexValue,
               timeStamp: DateTime.now().millisecondsSinceEpoch,
-              id: widget.id ?? noteItems.values.length,
+              id: widget.id!,
             ),
           );
 
@@ -108,7 +109,7 @@ class _EditScreenState extends State<EditScreen> {
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
-                    .copyWith(color: Colors.white),
+                    .copyWith(color: Colors.black),
                 decoration: InputDecoration(
                   hintText: '제목을 입력하세요',
                   border: InputBorder.none,
