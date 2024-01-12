@@ -32,9 +32,13 @@ class Commons {
   /// 숫자를 입력 받아, String 값의 날짜를 리턴한다.
   /// 예) Text(Commons.convertTime(timeStamp:  noteItems.getAt(index)!.timeStamp,),)
   static String convertTime({required int timeStamp}) {
-    initializeDateFormatting('ko_KR', null);
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
-    DateFormat formatter = DateFormat('yyyy년 M월 d일 EEEE H시 m분', 'ko_KR');
-    return formatter.format(date);
+    try {
+      initializeDateFormatting('ko_KR', null);
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+      DateFormat formatter = DateFormat('yyyy년 M월 d일 EEEE H시 m분', 'ko_KR');
+      return formatter.format(date);
+    } catch (e) {
+      return 'N/A';
+    }
   }
 }
