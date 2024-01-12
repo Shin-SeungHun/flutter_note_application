@@ -57,13 +57,17 @@ class _EditScreenState extends State<EditScreen> {
             return;
           }
 
-          await noteItems.put(widget.id, NoteItem(
-            title: _titleController.text,
-            content: _contentController.text,
-            color: selectedColor.indexValue,
-            timeStamp: DateTime.now().millisecondsSinceEpoch,
-            id: noteItems.values.length,
-          ));
+          await noteItems.put(
+            widget.id ,
+            NoteItem(
+              title: _titleController.text,
+              content: _contentController.text,
+              color: selectedColor.indexValue,
+              timeStamp: DateTime.now().millisecondsSinceEpoch,
+              id: widget.id ?? noteItems.values.length,
+            ),
+          );
+
           BuildContext currentContext = context;
           await Future.delayed(Duration.zero, () {
             currentContext.go('/');
