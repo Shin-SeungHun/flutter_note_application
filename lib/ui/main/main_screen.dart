@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: InkWell(
                   onTap: () {
-                    context.push('/detailScreen/${noteItems.getAt(index)?.id}');
+                    context.push('/editScreen/${noteItems.getAt(index)?.id}');
                   },
                   child: Card(
                     color: Commons.convertIndexToColor(index: noteItems.getAt(index)!.color.toString()),
