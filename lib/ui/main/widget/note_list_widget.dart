@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note_application/main.dart';
+import 'package:flutter_note_application/ui/main/main_view_model.dart';
 import 'package:flutter_note_application/utils/commons.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 
 class NoteListWidget extends StatefulWidget {
@@ -12,8 +14,10 @@ class NoteListWidget extends StatefulWidget {
 }
 
 class _NoteListWidgetState extends State<NoteListWidget> {
+
   @override
   Widget build(BuildContext context) {
+    MainViewModel mainViewModel = context.watch<MainViewModel>();
     return Positioned(
       top: 10,
       bottom: 10,
@@ -56,7 +60,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                               Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
                                 child: Text(
-                                  noteItems.getAt(index)?.content.toString() ??
+                                  mainViewModel.items.getAt(index)?.content.toString() ??
                                       '',
                                   style: const TextStyle(
                                     fontSize: 16.0,
@@ -75,7 +79,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                             child:
                             IconButton(
                               onPressed: () async {
-                                await noteItems.deleteAt(index);
+                                await mainViewModel.items.deleteAt(index);
                                 setState(() {
                                   Commons.showSnackBar(
                                       context: context, message: '삭제 되었습니다.');

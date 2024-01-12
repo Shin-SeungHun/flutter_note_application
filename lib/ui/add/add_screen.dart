@@ -55,7 +55,7 @@ class _AddScreenState extends State<AddScreen> {
           ));
           BuildContext currentContext = context;
           await Future.delayed(Duration.zero, () {
-            currentContext.go('/');
+            currentContext.push('/');
           });
         },
         child: const Icon(Icons.save),
