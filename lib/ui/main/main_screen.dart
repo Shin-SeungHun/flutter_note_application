@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note_application/ui/main/widget/main_background.dart';
 import 'package:flutter_note_application/utils/commons.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rive/rive.dart';
 import '../../main.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,11 +14,24 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My note'),
+          // title: const Text('My note'),
           actions: [
+            const SizedBox(
+              height: kToolbarHeight, // 앱 바의 높이로 설정
+              width: kToolbarHeight, // 앱 바의 높이로 설정
+              child: Stack(
+                children: [
+                  RiveAnimation.asset('assets/rive/cat.riv',fit: BoxFit.fill,),
+                ],
+              ),
+            ),
+            Spacer(),
             IconButton(
               onPressed: () async {
                 await noteItems.clear();
@@ -33,11 +47,19 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () async {
             await context.push('/addScreen');
           },
-          child: const Icon(Icons.add),
+          child:
+          const Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Stack(
+              children: [
+                RiveAnimation.asset('assets/rive/message_write.riv', fit: BoxFit.fill,),
+              ],
+            ),
+          ),
         ),
         body: Stack(
           children: [
-            MainBackgorund(),
+            const MainBackgorund(),
             noteListWidget(context),
           ],
         ));
@@ -54,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
       left: 10,
       right: 10,
       child: Container(
-        height: MediaQuery.of(context).size.height, // 화면 절반을 차지하도록 설정
+        height: MediaQuery.of(context).size.height,
         child: ListView.builder(
           itemCount: noteItems.length,
           itemBuilder: (context, index) {
@@ -133,3 +155,5 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
+
