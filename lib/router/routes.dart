@@ -31,8 +31,11 @@ final router = GoRouter(initialLocation: '/', routes: [
       name: 'EditScreen',
       builder: (context, state) {
         return ChangeNotifierProvider.value(
-          value: EditViewModel(),
-          child: const EditScreen(),
-        );
+            value: EditViewModel(),
+            child: EditScreen(
+              id: int.parse(
+                state.pathParameters['id']!,
+              ),
+            ));
       }),
 ]);
