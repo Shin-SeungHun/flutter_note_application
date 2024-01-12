@@ -6,10 +6,10 @@ import '../../utils/commons.dart';
 import '../../utils/enum/custom_colors.dart';
 
 class EditScreen extends StatefulWidget {
-  // final int? id;
+  final int? id;
   const EditScreen({
     super.key,
-    // required this.id,
+    required this.id,
   });
 
   @override
@@ -25,14 +25,14 @@ class _EditScreenState extends State<EditScreen> {
   void initState() {
     super.initState();
 
-    // if (widget.id != null) {
-    //   NoteItem? noteItem = noteItems.get(widget.id);
-    //   if (noteItem != null) {
-    //     _titleController.text = noteItem.title;
-    //     _contentController.text = noteItem.content;
-    //     selectedColor = CustomColorsExtension.colorFromIndex(noteItem.color);
-    //   }
-    // }
+    if (widget.id != null) {
+      NoteItem? noteItem = noteItems.get(widget.id);
+      if (noteItem != null) {
+        _titleController.text = noteItem.title;
+        _contentController.text = noteItem.content;
+        selectedColor = CustomColorsExtension.colorFromIndex(noteItem.color);
+      }
+    }
   }
 
   @override
@@ -57,7 +57,7 @@ class _EditScreenState extends State<EditScreen> {
             return;
           }
 
-          await noteItems.add(NoteItem(
+          await noteItems.put(widget.id, NoteItem(
             title: _titleController.text,
             content: _contentController.text,
             color: selectedColor.indexValue,
