@@ -19,16 +19,19 @@ class _MainScreenState extends State<MainScreen> {
           title: const Text('My note'),
           actions: [
             IconButton(
-              onPressed: () {
-                context.push('/detailScreen');
+              onPressed: () async {
+                await noteItems.clear();
+                setState(() {
+                  Commons.showSnackBar(context: context, message: '전체 삭제!');
+                });
               },
-              icon: const Icon(Icons.navigate_next),
+              icon: const Icon(Icons.delete),
             ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            context.push('/detailScreen');
+          onPressed: () async {
+            await context.push('/addScreen');
           },
           child: const Icon(Icons.add),
         ),
@@ -55,75 +58,75 @@ class _MainScreenState extends State<MainScreen> {
         child: ListView.builder(
           itemCount: noteItems.length,
           itemBuilder: (context, index) {
-            if (index == 0) {
-              // 데이터 없음.
-              return const SizedBox();
-            } else {
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: InkWell(
-                  onTap: () {
-                    context.push('/editScreen/${noteItems.getAt(index)?.id}');
-                  },
-                  child: Card(
-                    color: Commons.convertIndexToColor(
-                        index: noteItems.getAt(index)!.color.toString()),
-                    child: Container(
-                      color: Colors.transparent, // 투명한 배경색으로 설정
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  noteItems.getAt(index)?.title.toString() ?? '',
-
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: InkWell(
+                onTap: () {
+                  context.push('/editScreen/${noteItems.getAt(index)?.id}');
+                },
+                child: Card(
+                  color: Commons.convertIndexToColor(
+                      index: noteItems.getAt(index)!.color.toString()),
+                  child: Container(
+                    color: Colors.transparent, // 투명한 배경색으로 설정
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                noteItems.getAt(index)?.title.toString() ?? '',
+                                style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              const SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+                                child: Text(
+                                  noteItems.getAt(index)?.content.toString() ??
+                                      '',
                                   style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                    fontSize: 16.0,
+                                    color: Colors.black,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
-                                const SizedBox(height: 20),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 30, 0),
-                                  child: Text(
-                                    noteItems.getAt(index)?.content.toString() ?? '',
-                                    style: const TextStyle(fontSize: 16.0,color: Colors.black,),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Positioned(
-                              top: 40,
-                              bottom: 0,
-                              right: -10,
-                              child: IconButton(
-                                onPressed: () async {
-                                  await noteItems.deleteAt(index);
-                                  setState(() {
-                                    Commons.showSnackBar(
-                                        context: context, message: '삭제 되었습니다.');
-                                  });
-                                },
-                                icon: Icon(Icons.restore_from_trash_sharp, color: Colors.black ,),
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            top: 40,
+                            bottom: 0,
+                            right: -10,
+                            child: IconButton(
+                              onPressed: () async {
+                                await noteItems.deleteAt(index);
+                                setState(() {
+                                  Commons.showSnackBar(
+                                      context: context, message: '삭제 되었습니다.');
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.restore_from_trash_sharp,
+                                color: Colors.black,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              );
-            } // else
+              ),
+            );
           },
         ),
       ),
