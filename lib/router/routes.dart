@@ -18,8 +18,8 @@ final router = GoRouter(initialLocation: '/', routes: [
         );
       }),
   GoRoute(
-      path: '/detailScreen',
-      name: 'DetailScreen',
+      path: '/addScreen',
+      name: 'AddScreen',
       builder: (context, state) {
         return ChangeNotifierProvider.value(
           value: AddViewModel(),
