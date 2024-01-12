@@ -27,7 +27,7 @@ final router = GoRouter(initialLocation: '/', routes: [
         );
       }),
   GoRoute(
-      path: '/editScreen',
+      path: '/editScreen/:id',
       name: 'EditScreen',
       builder: (context, state) {
         return ChangeNotifierProvider.value(
