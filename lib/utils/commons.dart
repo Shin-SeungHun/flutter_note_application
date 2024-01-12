@@ -15,6 +15,7 @@ class Commons {
     }
   }
 
+  /// TODO: 1. success 성공-그린,  2.info 공지-연파랑  3. 경고 warring-주황  4. error-빨간
   static showSnackBar(
       {required BuildContext context, required String message}) {
     try {
@@ -24,4 +25,5 @@ class Commons {
       throw Exception(e);
     }
   }
+
 }

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_note_application/ui/main/widget/main_background.dart';
 import 'package:flutter_note_application/utils/commons.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../main.dart';
-import '../../utils/enum/custom_colors.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -45,6 +43,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget noteListWidget(BuildContext context) {
     print(noteItems);
 
+    // noteItems.deleteAll(noteItems.keys);
+
     return Positioned(
       top: 10,
       bottom: 10,
@@ -66,7 +66,8 @@ class _MainScreenState extends State<MainScreen> {
                     context.push('/editScreen/${noteItems.getAt(index)?.id}');
                   },
                   child: Card(
-                    color: Commons.convertIndexToColor(index: noteItems.getAt(index)!.color.toString()),
+                    color: Commons.convertIndexToColor(
+                        index: noteItems.getAt(index)!.color.toString()),
                     child: Container(
                       color: Colors.transparent, // 투명한 배경색으로 설정
                       child: Padding(
@@ -77,11 +78,13 @@ class _MainScreenState extends State<MainScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  noteItems.getAt(index)?.title.toString() ??
-                                      '',
+                                  noteItems.getAt(index)?.title.toString() ?? '',
+
                                   style: const TextStyle(
                                       fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -90,12 +93,8 @@ class _MainScreenState extends State<MainScreen> {
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 0, 30, 0),
                                   child: Text(
-                                    noteItems
-                                            .getAt(index)
-                                            ?.content
-                                            .toString() ??
-                                        '',
-                                    style: const TextStyle(fontSize: 16.0),
+                                    noteItems.getAt(index)?.content.toString() ?? '',
+                                    style: const TextStyle(fontSize: 16.0,color: Colors.black,),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
@@ -108,15 +107,13 @@ class _MainScreenState extends State<MainScreen> {
                               right: -10,
                               child: IconButton(
                                 onPressed: () async {
-                                  await noteItems.delete(index);
-
-                                  () =>(){
-                                    Commons.showSnackBar(context: context, message:'삭제되었습니다.');
-                                  };
-
-                                  setState(() {});
+                                  await noteItems.deleteAt(index);
+                                  setState(() {
+                                    Commons.showSnackBar(
+                                        context: context, message: '삭제 되었습니다.');
+                                  });
                                 },
-                                icon: Icon(Icons.restore_from_trash_sharp),
+                                icon: Icon(Icons.restore_from_trash_sharp, color: Colors.black ,),
                               ),
                             ),
                           ],
