@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_note_application/data/model/note_item.dart';
-import 'package:flutter_note_application/main.dart';
+import 'package:flutter_note_application/ui/add/add_view_model.dart';
+import 'package:flutter_note_application/ui/add/widget/custom_color_widget.dart';
+import 'package:flutter_note_application/ui/add/widget/floating_action_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_note_application/utils/commons.dart';
+import 'package:flutter_note_application/utils/enum/custom_colors.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/commons.dart';
-import '../../utils/enum/custom_colors.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({
@@ -17,12 +19,6 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-  CustomColors selectedColor = CustomColors.roseBud;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -33,117 +29,25 @@ class _AddScreenState extends State<AddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AddViewModel _viewModel = context.watch<AddViewModel>();
+    // AddViewModel _viewModel = AddViewModel();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (_titleController.text.isEmpty) {
-            Commons.showSnackBar(context: context, message: '제목을 입력하세요.');
-            return;
-          }
-
-          if (_contentController.text.isEmpty) {
-            Commons.showSnackBar(context: context, message: '내용을 입력하세요.');
-            return;
-          }
-
-          await noteItems.add(NoteItem(
-            title: _titleController.text,
-            content: _contentController.text,
-            color: selectedColor.indexValue,
-            timeStamp: DateTime.now().millisecondsSinceEpoch,
-            id: noteItems.values.length,
-          ));
-          BuildContext currentContext = context;
-          await Future.delayed(Duration.zero, () {
-            currentContext.push('/');
-          });
-        },
-        child: const Icon(Icons.save),
-      ),
+      floatingActionButton: FloatingActionWidget(
+          titleController: _titleController,
+          contentController: _contentController,
+          viewModel: _viewModel),
       body: AnimatedContainer(
-        color: selectedColor.colorValue,
+        color: _viewModel.selectedColor.colorValue,
         duration: const Duration(milliseconds: 500),
         child: Padding(
           padding:
               const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 20),
-          child: ListView(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: CustomColors.values
-                    .map(
-                      (e) => InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedColor = e;
-                          });
-                        },
-                        child: _buildBackgroundColor(
-                            color: e.colorValue, selected: e == selectedColor),
-                      ),
-                    )
-                    .toList(),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextField(
-                controller: _titleController,
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(color: Colors.black),
-                decoration: const InputDecoration(
-                  hintText: '제목을 입력하세요',
-                  hintStyle: TextStyle(color: Colors.black38),
-                  border: InputBorder.none,
-                ),
-              ),
-              TextField(
-                controller: _contentController,
-                maxLines: null,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(color: Colors.black),
-                decoration: const InputDecoration(
-                  hintText: '내용을 입력하세요',
-                  hintStyle: TextStyle(color: Colors.black38),
-                  border: InputBorder.none,
-                ),
-              ),
-            ],
-          ),
+          child: CustomColorListWidget(
+              viewModel: _viewModel,
+              titleController: _titleController,
+              contentController: _contentController),
         ),
       ),
     );
   }
-}
-
-Widget _buildBackgroundColor({
-  required Color color,
-  required bool selected,
-}) {
-  return Container(
-    width: 48,
-    height: 48,
-    decoration: BoxDecoration(
-      color: color,
-      shape: BoxShape.circle,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black54.withOpacity(0.2),
-          blurRadius: 5.0,
-          spreadRadius: 1.0,
-        )
-      ],
-      border: selected
-          ? Border.all(
-              color: Colors.black54,
-              width: 3.0,
-            )
-          : null,
-    ),
-  );
 }

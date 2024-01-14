@@ -18,6 +18,29 @@ class Commons {
     }
   }
 
+  /// TODO: 1. success 성공-그린,  2.info 공지-연파랑  3. 경고 warring-주황  4. error-빨간
+  static showSnackBar(
+      {required BuildContext context, required String message}) {
+    try {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.black),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            // 테두리를 변경하는 부분
+            borderRadius: BorderRadius.circular(20.0), // 원하는 테두리 모양 및 반지름 지정
+            side: const BorderSide(color: Colors.black45, width: 2.0),
+          ),
+        ),
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   /// 숫자를 입력 받아, String 값의 날짜를 리턴한다.
   /// 예) Text(Commons.convertTime(timeStamp:  noteItems.getAt(index)!.timeStamp,),)
@@ -29,18 +52,6 @@ class Commons {
       return formatter.format(date);
     } catch (e) {
       return 'N/A';
-    }
-  }
-
-  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ  [ UI ] ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-  /// TODO: 1. success 성공-그린,  2.info 공지-연파랑  3. 경고 warring-주황  4. error-빨간
-  static showSnackBar({required BuildContext context, required String message}) {
-    try {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
-    } catch (e) {
-      throw Exception(e);
     }
   }
 
@@ -75,5 +86,4 @@ class Commons {
       },
     );
   }
-
 }
