@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
+import 'package:flutter_note_application/ui/edit/edit_view_model.dart';
+import 'package:flutter_note_application/ui/edit/widget/floating_action_widget.dart';
+import 'package:flutter_note_application/utils/commons.dart';
+import 'package:flutter_note_application/utils/enum/custom_colors.dart';
 import 'package:go_router/go_router.dart';
-import '../../utils/commons.dart';
-import '../../utils/enum/custom_colors.dart';
+import 'package:provider/provider.dart';
 
 class EditScreen extends StatefulWidget {
   final int? id;
@@ -20,7 +23,7 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
-  CustomColors selectedColor = CustomColors.roseBud;
+  CustomColors _selectedColor = CustomColors.roseBud;
 
   @override
   void initState() {
@@ -31,7 +34,7 @@ class _EditScreenState extends State<EditScreen> {
       if (noteItem != null) {
         _titleController.text = noteItem.title;
         _contentController.text = noteItem.content;
-        selectedColor = CustomColorsExtension.colorFromIndex(noteItem.color);
+        _selectedColor = CustomColorsExtension.colorFromIndex(noteItem.color);
       }
     }
   }
@@ -45,39 +48,17 @@ class _EditScreenState extends State<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
+    EditViewModel _viewModel = context.watch<EditViewModel>();
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (_titleController.text.isEmpty) {
-            Commons.showSnackBar(context: context, message: '제목을 입력하세요.');
-            return;
-          }
-
-          if (_contentController.text.isEmpty) {
-            Commons.showSnackBar(context: context, message: '내용을 입력하세요.');
-            return;
-          }
-
-          await noteItems.putAt(
-            widget.id!,
-            NoteItem(
-              title: _titleController.text,
-              content: _contentController.text,
-              color: selectedColor.indexValue,
-              timeStamp: DateTime.now().millisecondsSinceEpoch,
-              id: widget.id!,
-            ),
-          );
-
-          BuildContext currentContext = context;
-          await Future.delayed(Duration.zero, () {
-            currentContext.go('/');
-          });
-        },
-        child: const Icon(Icons.save),
-      ),
+      floatingActionButton: FloatingActionWidget(
+          titleController: _titleController,
+          contentController: _contentController,
+          viewModel: _viewModel,
+          widget: widget,
+          selectedColor: _selectedColor),
       body: AnimatedContainer(
-        color: selectedColor.colorValue,
+        color: _selectedColor.colorValue,
         duration: const Duration(milliseconds: 500),
         child: Padding(
           padding:
@@ -91,11 +72,11 @@ class _EditScreenState extends State<EditScreen> {
                       (e) => InkWell(
                         onTap: () {
                           setState(() {
-                            selectedColor = e;
+                            _selectedColor = e;
                           });
                         },
                         child: _buildBackgroundColor(
-                            color: e.colorValue, selected: e == selectedColor),
+                            color: e.colorValue, selected: e == _selectedColor),
                       ),
                     )
                     .toList(),
