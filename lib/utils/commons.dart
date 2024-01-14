@@ -3,7 +3,6 @@ import 'package:flutter_note_application/utils/enum/custom_colors.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
 class Commons {
   /// 문자열(숫자)를 입력 받아,[ enum CustomColors ] 값의 컬러 값 을 리턴 한다.
   /// 예) color: Commons.convertIndexToColor(index: noteItems.getAt(index)!.color.toString()),
@@ -22,8 +21,21 @@ class Commons {
   static showSnackBar(
       {required BuildContext context, required String message}) {
     try {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.black),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            // 테두리를 변경하는 부분
+            borderRadius: BorderRadius.circular(20.0), // 원하는 테두리 모양 및 반지름 지정
+            side: const BorderSide(color: Colors.black45, width: 2.0),
+          ),
+        ),
+      );
     } catch (e) {
       throw Exception(e);
     }
