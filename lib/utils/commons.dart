@@ -54,4 +54,36 @@ class Commons {
       return 'N/A';
     }
   }
+
+  /// 기능: ( 예 / 아니오 ) alert 다이얼로그
+  /// 예)  bool? result = await showCustomDialog( context: context, title: '종료', content: '종료하시겠습니까?' );
+  static Future<bool?> onAlertDialog({
+    required BuildContext context,
+    required String title,
+    required String content,
+  }) async {
+    return  await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              child: const Text('예'),
+              onPressed: () {
+                Navigator.of(context).pop(true);  // 다이얼로그를 닫고, true 값을 반환
+              },
+            ),
+            TextButton(
+              child: const Text('아니오'),
+              onPressed: () {
+                Navigator.of(context).pop(false);  // 다이얼로그를 닫고, false 값을 반환
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
