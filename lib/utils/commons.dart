@@ -35,7 +35,7 @@ class Commons {
     try {
       initializeDateFormatting('ko_KR', null);
       DateTime date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
-      DateFormat formatter = DateFormat('yyyy년 M월 d일 EEEE H시 m분', 'ko_KR');
+      DateFormat formatter = DateFormat('yyyy.M.d(E) H:m:s', 'ko_KR');
       return formatter.format(date);
     } catch (e) {
       return 'N/A';
