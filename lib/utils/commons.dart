@@ -22,8 +22,21 @@ class Commons {
   static showSnackBar(
       {required BuildContext context, required String message}) {
     try {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.black),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            // 테두리를 변경하는 부분
+            borderRadius: BorderRadius.circular(20.0), // 원하는 테두리 모양 및 반지름 지정
+            side: const BorderSide(color: Colors.black45, width: 2.0),
+          ),
+        ),
+      );
     } catch (e) {
       throw Exception(e);
     }
