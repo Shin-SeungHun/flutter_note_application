@@ -19,12 +19,24 @@ class AddViewModel extends ChangeNotifier {
     required int color,
     required int timeStamp,
   }) async {
+    int newId = await findUniqueNoteId();
+
     await noteItems.add(NoteItem(
       title: title,
       content: content,
       color: color,
       timeStamp: timeStamp,
-      id: noteItems.values.length,
+      id: newId,
     ));
   }
+  Future<int> findUniqueNoteId() async {
+    int newId = noteItems.values.length;
+
+    while (noteItems.containsKey(newId)) {
+      newId++;
+    }
+
+    return newId;
+  }
 }
+
