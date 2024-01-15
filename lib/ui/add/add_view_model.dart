@@ -1,7 +1,11 @@
+import 'dart:math';
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
 import 'package:flutter_note_application/utils/enum/custom_colors.dart';
+
 
 class AddViewModel extends ChangeNotifier {
   CustomColors _selectedColor = CustomColors.roseBud;
@@ -29,14 +33,18 @@ class AddViewModel extends ChangeNotifier {
       id: newId,
     ));
   }
-  Future<int> findUniqueNoteId() async {
+
+  /// id 리스트를 조회하여, 가장 큰수의 +1 한 값을 id로 생성.
+  int findUniqueNoteId() {
     int newId = noteItems.values.length;
 
-    while (noteItems.containsKey(newId)) {
-      newId++;
+    if (newId > 0) {
+      List<int> getIdList = noteItems.values.map((item) => item.id).toList();
+      int maxValue = getIdList.reduce((previousValue, element) => max(previousValue, element));
+      return newId = maxValue + 1;
+    } else {
+      return newId;
     }
-
-    return newId;
   }
 }
 
