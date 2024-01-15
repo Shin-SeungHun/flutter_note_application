@@ -14,8 +14,8 @@ final router = GoRouter(initialLocation: '/', routes: [
       path: Router.mainScreen.path,
       name: Router.mainScreen.name,
       builder: (context, state) {
-        return ChangeNotifierProvider.value(
-          value: MainViewModel(),
+        return ChangeNotifierProvider(
+          create:(_) => MainViewModel(),
           child: const MainScreen(),
         );
       }),

@@ -50,11 +50,11 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                       Row(
                         children: [
                           SizedBox(
-                            width: 140,
+                            width: 200,
                             child: Text(
                               item.title.toString() ?? '',
                               style: const TextStyle(
-                                fontSize: 16.0,
+                                fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -65,11 +65,11 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                           Spacer(),
                           /// timeStamp
                           SizedBox(
-                            width: 70,
+                            width: 80,
                             child: Text(
                               Commons.convertTime(timeStamp: item.timeStamp) ?? '',
                               style: const TextStyle(
-                                fontSize: 11.0,
+                                fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -85,21 +85,21 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                         children: [
                           /// content
                           SizedBox(
-                            width: 160,
+                            width: 240,
                             child: Text(
                               mainViewModel.noteList[index].content.toString() ?? '',
                               style: const TextStyle(
-                                fontSize: 11.0,
+                                fontSize: 20.0,
                                 color: Colors.black,
                               ),
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
+                              maxLines: 3,
                             ),
                           ),
                           const Spacer(),
                           /// content
                           SizedBox(
-                            width: 40,
+                            width: 30,
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                               child: IconButton(
