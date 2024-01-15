@@ -28,116 +28,114 @@ class _NoteListWidgetState extends State<NoteListWidget> {
       final item = entry.value;
 
       /// 노트 리스트 - 그리드 UI 설정
-      return Padding(
-        key: Key(item.id.toString()),
-        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: InkWell(
-          onTap: () {
-            print('${item.id.toString()}');
-            context.push('/editScreen/${item.id.toString()}');
-          },
-          child: Card(
-            color: (Commons.convertIndexToColor(index: item.color.toString())
-            as Color)
-                .withOpacity(0.8),
-            child: Container(
-              color: Colors.transparent, // 투명한 배경색으로 설정
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              flex: 7,
-                              child: Text(
-                                item.title.toString() ?? '',
-                                style: const TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
+      return
+        Padding(
+          key: Key(item.id.toString()),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+          child: InkWell(
+            onTap: () {
+              print('${item.id.toString()}');
+              context.push('/editScreen/${item.id.toString()}');
+            },
+            child:
+            Card(
+              color: (Commons.convertIndexToColor(index: item.color.toString()) as Color)
+                  .withOpacity(0.8),
+              child: Container(
+                color: Colors.transparent, // 투명한 배경색으로 설정
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 140,
+                            child: Text(
+                              item.title.toString() ?? '',
+                              style: const TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          Spacer(),
+                          /// timeStamp
+                          SizedBox(
+                            width: 70,
+                            child: Text(
+                              Commons.convertTime(timeStamp: item.timeStamp) ?? '',
+                              style: const TextStyle(
+                                fontSize: 11.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              textAlign: TextAlign.right,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          /// content
+                          SizedBox(
+                            width: 160,
+                            child: Text(
+                              mainViewModel.noteList[index].content.toString() ?? '',
+                              style: const TextStyle(
+                                fontSize: 11.0,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const Spacer(),
+                          /// content
+                          SizedBox(
+                            width: 40,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                              child: IconButton(
+                                onPressed: () async {
+                                  bool? isConfirm = await Commons.onAlertDialog(
+                                    context: context,
+                                    title: '삭제',
+                                    content: '삭제 하시겠습니까?',
+                                  );
+
+                                  if (isConfirm != null && isConfirm) {
+                                    bool? result = await mainViewModel.delete(index: index);
+
+                                    result != null
+                                        ? await Commons.showSnackBar(context: context, message: '삭제 되었습니다.')
+                                        : await Commons.showSnackBar(context: context, message: '삭제 실패.');
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
                                   color: Colors.black,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
                               ),
                             ),
-                            const Spacer(),
-                            Expanded(
-                              flex: 3,
-                              child: Text(
-                                Commons.convertTime(
-                                    timeStamp: item.timeStamp) ??
-                                    '',
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Text(
-                                    mainViewModel.noteList[index].content.toString() ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                    child: IconButton(
-                                      onPressed: () async {
-
-                                        bool? isConfirm = await Commons.onAlertDialog(context: context, title: '삭제', content: '삭제 하시겠습니까?');
-
-                                        if(isConfirm != null && isConfirm){
-                                          bool? result = await mainViewModel.delete(index: index );
-
-                                          result != null
-                                              ? await Commons.showSnackBar(context: context, message: '삭제 되었습니다.')
-                                              : await Commons.showSnackBar(context: context, message: '삭제 실패.');
-
-                                        }
-                                      },
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
+        );
+
+
     }).toList();
 
     /// Reorderable 설정
@@ -157,7 +155,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
           controller: _scrollController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 1, // 가로 개수
-            childAspectRatio: (1 / .4), // 그리드 1칸 사이즈
+            childAspectRatio: (1 / .5), // 그리드 1칸 사이즈
             mainAxisSpacing: 0, // 간격
             crossAxisSpacing: 0,
           ),
