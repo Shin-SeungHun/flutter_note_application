@@ -32,7 +32,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: InkWell(
           onTap: () {
-            print(item.id.toString());
+            // print(item.id.toString());
             context.push('/editScreen/${item.id.toString()}');
           },
           child: Card(
@@ -112,8 +112,8 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                                   bool? result = await mainViewModel.delete(index: index);
 
                                   result != null
-                                      ? await Commons.showSnackBar(context: context, message: '삭제 되었습니다.')
-                                      : await Commons.showSnackBar(context: context, message: '삭제 실패.');
+                                      ? await Commons.showSnackBar(context: context, message: '"${item.title}"이/가 삭제 되었습니다.')
+                                      : await Commons.showSnackBar(context: context, message: '"${item.title}" 삭제를 실패했습니다.');
                                 }
                               },
                               icon: const Icon(

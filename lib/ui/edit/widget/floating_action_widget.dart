@@ -44,6 +44,7 @@ class FloatingActionWidget extends StatelessWidget {
 
         BuildContext currentContext = context;
         await Future.delayed(Duration.zero, () {
+          Commons.showSnackBar(context: context, message: '"${_titleController.text}"이/가 수정되었습니다.');
           currentContext.push('/');
         });
       },

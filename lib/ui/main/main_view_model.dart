@@ -20,7 +20,7 @@ class MainViewModel extends ChangeNotifier {
 
       noteList.addAll([...noteDB.values.whereType<NoteItem>()]);
 
-      print([...noteDB.values.whereType<NoteItem>()]);
+      // print([...noteDB.values.whereType<NoteItem>()]);
 
       notifyListeners();
     } catch (e) {
@@ -34,7 +34,7 @@ class MainViewModel extends ChangeNotifier {
       NoteItem? getItem = findItem(index: index);
 
       if (getItem != null) {
-        print('삭제할 아이템: $getItem');
+        // print('삭제할 아이템: $getItem');
         await noteDB.delete(getItem.key);
         // print(noteDB.toString());
         init();

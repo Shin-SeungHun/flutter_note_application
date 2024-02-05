@@ -3,9 +3,7 @@ import 'package:flutter_note_application/ui/add/add_view_model.dart';
 import 'package:flutter_note_application/ui/add/widget/custom_color_widget.dart';
 import 'package:flutter_note_application/ui/add/widget/floating_action_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_note_application/utils/commons.dart';
 import 'package:flutter_note_application/utils/enum/custom_colors.dart';
-import 'package:go_router/go_router.dart';
 
 class AddScreen extends StatefulWidget {
   const AddScreen({

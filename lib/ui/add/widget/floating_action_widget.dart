@@ -39,6 +39,7 @@ class FloatingActionWidget extends StatelessWidget {
             timeStamp: DateTime.now().millisecondsSinceEpoch);
         BuildContext currentContext = context;
         await Future.delayed(Duration.zero, () {
+          Commons.showSnackBar(context: context, message: '"${_titleController.text}"이/가 저장되었습니다.');
           currentContext.push('/');
         });
       },
