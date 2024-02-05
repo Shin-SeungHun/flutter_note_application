@@ -17,11 +17,12 @@ class NoteItemAdapter extends TypeAdapter<NoteItem> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NoteItem(
+      id: fields[0] as int,
       title: fields[1] as String,
       content: fields[2] as String,
       color: fields[3] as int,
       timeStamp: fields[4] as int,
-    )..id = fields[0] as int?;
+    );
   }
 
   @override

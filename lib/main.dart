@@ -8,11 +8,21 @@ import 'router/routes.dart';
 late final Box<NoteItem> noteItems;
 
 void main() async {
-  await Hive.initFlutter();
-
-  noteItems = await Hive.openBox<NoteItem>('note.db');
+  await init();
 
   runApp(const MyApp());
+}
+
+Future<void> init() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(NoteItemAdapter());
+  noteItems = await Hive.openBox<NoteItem>('note.db');
+  print('All items in noteItems box:');
+  for (var key in noteItems.keys) {
+    var item = noteItems.get(key);
+    print('item ${item?.timeStamp.runtimeType}');
+    print('noteItems ${noteItems.keys};');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -24,10 +34,14 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'note app',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.resolveWith((states) => Colors.indigo),
+          ))),
+      themeMode: ThemeMode.dark,
     );
   }
 }
