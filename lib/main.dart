@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
-      title: 'note app',
+      title: 'Color Notes',
       darkTheme: ThemeData(
           brightness: Brightness.dark,
           elevatedButtonTheme: ElevatedButtonThemeData(
