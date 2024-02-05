@@ -44,7 +44,7 @@ class _MainScreenState extends State<MainScreen> {
               onPressed: viewModel.hasData
                   ? () async {
                       bool? confirmDelete =
-                          await Commons.onAlertDialog(context: context, title: 'alert', content: '데이터를 전부 삭제하시겠습니까?');
+                          await Commons.onAlertDialog(context: context, title: '전체 삭제', content: '데이터를 전부 삭제하시겠습니까?');
                       if (confirmDelete == true) {
                         await viewModel.deleteAll();
                         await Commons.showSnackBar(context: context, message: '데이터가 전부 삭제되었습니다.');
