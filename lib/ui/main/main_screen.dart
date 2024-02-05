@@ -6,7 +6,6 @@ import 'package:flutter_note_application/utils/commons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
-import 'package:flutter_note_application/main.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);

@@ -36,6 +36,7 @@ class MainViewModel extends ChangeNotifier {
       if (getItem != null) {
         print('삭제할 아이템: $getItem');
         await noteDB.delete(getItem.key);
+        // print(noteDB.toString());
         init();
         return true;
       }

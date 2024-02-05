@@ -34,7 +34,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: InkWell(
             onTap: () {
-              print('${item.id.toString()}');
+              print(item.id.toString());
               context.push('/editScreen/${item.id.toString()}');
             },
             child:
@@ -62,7 +62,7 @@ class _NoteListWidgetState extends State<NoteListWidget> {
                               maxLines: 1,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           /// timeStamp
                           SizedBox(
                             width: 80,

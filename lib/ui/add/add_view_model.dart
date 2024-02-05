@@ -6,7 +6,6 @@ import 'package:flutter_note_application/data/model/note_item.dart';
 import 'package:flutter_note_application/main.dart';
 import 'package:flutter_note_application/utils/enum/custom_colors.dart';
 
-
 class AddViewModel extends ChangeNotifier {
   CustomColors _selectedColor = CustomColors.roseBud;
 
@@ -23,15 +22,17 @@ class AddViewModel extends ChangeNotifier {
     required int color,
     required int timeStamp,
   }) async {
-    int newId = await findUniqueNoteId();
+    int newId = findUniqueNoteId();
 
-    await noteItems.add(NoteItem(
-      title: title,
-      content: content,
-      color: color,
-      timeStamp: timeStamp,
-      id: newId,
-    ));
+    await noteItems.put(
+        newId,
+        NoteItem(
+          title: title,
+          content: content,
+          color: color,
+          timeStamp: timeStamp,
+          id: newId,
+        ));
   }
 
   /// id 리스트를 조회하여, 가장 큰수의 +1 한 값을 id로 생성.
@@ -47,4 +48,3 @@ class AddViewModel extends ChangeNotifier {
     }
   }
 }
-
