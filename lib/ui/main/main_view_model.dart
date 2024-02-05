@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_note_application/data/model/note_item.dart';
+import 'package:flutter_note_application/main.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import '../../main.dart';
 
 class MainViewModel extends ChangeNotifier {
   late Box<NoteItem> noteDB;
   List<NoteItem> noteList = [];
-
+  bool get hasData => noteList.isNotEmpty;
   MainViewModel() {
     init();
   }
@@ -43,6 +43,17 @@ class MainViewModel extends ChangeNotifier {
       // print(e);
       init();
       return false;
+    }
+  }
+
+  /// 데이터 전체 삭제
+  Future<void> deleteAll() async{
+    try{
+      await noteDB.clear();
+      init();
+      notifyListeners();
+    }catch(e){
+      init();
     }
   }
 
