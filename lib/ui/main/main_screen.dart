@@ -22,7 +22,8 @@ class _MainScreenState extends State<MainScreen> {
     MainViewModel viewModel = context.watch<MainViewModel>();
     return Scaffold(
         appBar: AppBar(
-          // title: const Text('My note'),
+          // backgroundColor: Colors.transparent,
+          // elevation: 1,
           actions: [
             const SizedBox(
               height: kToolbarHeight, // 앱 바의 높이로 설정
@@ -30,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
                     child: RiveAnimation.asset(
                       'assets/rive/cat.riv',
                       fit: BoxFit.fill,
@@ -51,10 +52,16 @@ class _MainScreenState extends State<MainScreen> {
                       }
                     }
                   : null,
-              child: const Text('전체삭제'),
+              child: const Text(
+                '전체삭제',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
+        extendBodyBehindAppBar: true,
+        //body 위에 appbar
+
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             await context.push('/addScreen');
