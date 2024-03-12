@@ -6,16 +6,12 @@ part 'note_item.g.dart';
 class NoteItem extends HiveObject {
   @HiveField(0)
   int id;
-
   @HiveField(1)
   String title;
-
   @HiveField(2)
   String content;
-
   @HiveField(3)
   int color;
-
   @HiveField(4)
   int timeStamp;
 
@@ -40,22 +36,11 @@ class NoteItem extends HiveObject {
           timeStamp == other.timeStamp);
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode ^
-      content.hashCode ^
-      color.hashCode ^
-      timeStamp.hashCode;
+  int get hashCode => id.hashCode ^ title.hashCode ^ content.hashCode ^ color.hashCode ^ timeStamp.hashCode;
 
   @override
   String toString() {
-    return 'NoteItem{' +
-        ' id: $id,' +
-        ' title: $title,' +
-        ' content: $content,' +
-        ' color: $color,' +
-        ' timeStamp: $timeStamp,' +
-        '}';
+    return 'NoteItem{ id: $id, title: $title, content: $content, color: $color, timeStamp: $timeStamp,}';
   }
 
   NoteItem copyWith({
@@ -76,15 +61,15 @@ class NoteItem extends HiveObject {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.id,
-      'title': this.title,
-      'content': this.content,
-      'color': this.color,
-      'timeStamp': this.timeStamp,
+      'id': id,
+      'title': title,
+      'content': content,
+      'color': color,
+      'timeStamp': timeStamp,
     };
   }
 
-  factory NoteItem.fromMap(Map<String, dynamic> json) {
+  factory NoteItem.fromJson(Map<String, dynamic> json) {
     return NoteItem(
       id: json['id'] as int,
       title: json['title'] as String,
