@@ -48,8 +48,8 @@ android {
         minSdkVersion flutter.minSdkVersion
         ndkVersion "25.1.8937393"
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 4
-        versionName "1.0.4"
+        versionCode 5
+        versionName "1.0.5"
     }
 
     buildTypes {
